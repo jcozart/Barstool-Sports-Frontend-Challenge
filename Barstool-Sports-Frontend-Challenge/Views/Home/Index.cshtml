@@ -2,7 +2,15 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"></i>
+        <div>
+            @TempData["ErrorMessage"]
+        </div>
+    </div>
+}
 @foreach (var story in Model.Stories)
 {
     <div class="d-flex justify-content-center h-100">
