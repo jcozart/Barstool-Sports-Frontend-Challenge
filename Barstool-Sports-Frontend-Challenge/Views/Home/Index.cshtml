@@ -1,0 +1,42 @@
+﻿@model StoriesViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@foreach (var story in Model.Stories)
+{
+    <div class="d-flex justify-content-center h-100">
+        <div class="card mb-3 w-50">
+            <div class="row g-0 h-100">
+                <div class="col-md-4 py-2 ps-2 pe-sm-0 pe-2">
+                    @if (story.Thumbnail.Desktop != null)
+                    {
+                        <img src="@story.Thumbnail.Desktop" class="img-fluid h-100 w-100" alt="...">
+                    }
+                    else
+                    {
+                        <img src="~/img/logo.png" class="img-fluid h-100 w-100" alt="...">
+                    }
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title text-wrap">@story.Title</h5>
+                        <div class="d-flex align-items-center">
+                            <img src="@story.Author.Avatar" class="rounded-circle" style="width: 30px;" />
+                            <p class="card-text"><small class="text-muted ps-2">@story.Author.Name</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<form asp-action="LoadMoreStories" method="post">
+    <input type="hidden" name="storiesLoaded" value="@Model.Stories.Count" />
+    @if (!Model.IsEnd)
+    {
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-danger w-50">Load More</button>
+        </div>
+    }
+</form>
